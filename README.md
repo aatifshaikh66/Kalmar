@@ -1,7 +1,7 @@
 # Kalmar
 
 Configure parameters
-1.	Configure Device IMEI on the device.
+1.	Configure Device IMEI on the device. [config json file]
 2.	Configure Device IP address. [Not required]
 3.	Configure TCP/IP or HTTP details
 4.	Configure MQTT details for collecting GPS correction data from the base station
