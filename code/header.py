@@ -27,7 +27,7 @@ from locale  import atof
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
                     #port, baudrate, parity, stopbit, bytesize,timeout 
-configGPSComPort   =["/dev/ttyACM0",115200,'N',1,8,1]
-configRFIDComPort  =["/dev/ttySS2",115200,'N',1,8,1]
+configGPSComPort   =["/dev/ttyS2",115200,'N',1,8,1]
+configRFIDComPort  =["/dev/ttyS3",115200,'N',1,8,1]
 
 

@@ -1,0 +1,20 @@
+{
+    "IMEI"          : "123456789012345",
+
+    "SER TCPIP"     : "12.12.12.12",
+    "SER TCPPORT"   : "2202",
+
+    "SER HTTP URL"  : "http://www.google.com/",
+
+    "SER MQTT URL"  : "www.qikkle.com",
+    "SER MQTT PORT" : "1883",
+    "SER MQTT TOPIC": "Client Data",
+
+    "GPS MQTT URL"  : "www.qikkle.com",
+    "GPS MQTT PORT" : "1883",
+    "GPS MQTT TOPIC": "GPS Data",
+
+    "SYS REBOOT NOCON": "5",
+    "SYS REBOOT TIME" : "12:00:00"
+
+}

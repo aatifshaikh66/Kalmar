@@ -21,7 +21,7 @@ _RESET =  0
 _SET   =  1
 
 #enable/ disable the debugg
-_GPS_DEBUGG_PRINT = _SET
+_GPS_DEBUGG_PRINT = _RESET
 
 #number of coma present in the respected frame
 _GPS_FRAME_RMC_COUNT  =13
@@ -70,8 +70,9 @@ def FnGPSParseRMC(frame):
       varlistgpsparameter[0] = str(GGAPara.status)
       varlistgpsparameter[1] = str(GGAPara.time)
       varlistgpsparameter[2] = str(GGAPara.date)
-      varlistgpsparameter[7] = str(GGAPara.spd)                  
-
+      varlistgpsparameter[7] = str(GGAPara.spd)
+      PrintString = "ST=" + str(varlistgpsparameter[0]) + " T/D=" + str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]) + " LAT=" + str(varlistgpsparameter[3]) +" "+ str(varlistgpsparameter[4]) + " LON=" + str(varlistgpsparameter[5]) +" "+ str(varlistgpsparameter[6])
+      print(PrintString)
 
 #varlistgpsframetype = ["RMC","GGA","GSA","GSV","GPVTG","GLL","$PSTI,032","PSTMANTENNASTATUS"]
 #gprs frame parse
@@ -126,8 +127,8 @@ def FnGPSFrameParse(frame):
           #_ERROR  indicate that the frame is unwanted
           varFrameType = _ERROR
           #put the data in log
-          if _GPS_DEBUGG_PRINT == 1:
-             print("Unknown Frame="+ str(frame))
+          #if _GPS_DEBUGG_PRINT == 1:
+          #   print("Unknown Frame="+ str(frame))
     #return the frame type  
     return varFrameType  
 

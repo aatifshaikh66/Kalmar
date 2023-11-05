@@ -14,7 +14,7 @@ from header   import *
 from variable import *
 from threads  import *
 from serials  import *
-#from gps      import FnGPSFrameParse
+from gps      import FnGPSFrameParse
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
@@ -33,5 +33,8 @@ FnSerialInit( )
 #init the tread
 FnThreadStart( )
 
+nmr = FnGPSFrameParse(str1)
+
 while _SET:
    pass
+

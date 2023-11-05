@@ -85,7 +85,6 @@ def FnSerialGPSCheck(GPSString):
     else:
         return _RESET    
 
-
 ######################################################################
 def FnSerialReceive( ):
     global GPSSerialFileStream
@@ -106,8 +105,6 @@ def FnSerialReceive( ):
                    RFIDString = RFIDSerialFileStream.readline( ).decode("utf-8")
 
 
-
         #--------------------------------------------------------                       
         time.sleep(.2/100)            
-
 

@@ -3,9 +3,9 @@
 Configure parameters
 1.	Configure Device IMEI on the device. [config json file]
 2.	Configure Device IP address. [Not required]
-3.	Configure TCP/IP or HTTP details
-4.	Configure MQTT details for collecting GPS correction data from the base station
-5.	Configure Device Reboot time 
+3.	Configure TCP/IP or HTTP details [config json file]
+4.	Configure MQTT details for collecting GPS correction data from the base station 
+5.	Configure Device Reboot time [config json file]
 a.	Fix Time in day ..hour
 b.	Reboot after no connection found in consecutive 5 time.
 6.	Configure ALL UART port 
@@ -23,8 +23,8 @@ b.	Reboot after no connection found in consecutive 5 time.
 3.	Get GPS Co-ordinates
 4.	Get GPS Date-time, Speed, GPS Height(if available) 
 5.	Get Analog Data (like Height Sensor, Fuel Sensor)
-6.	Get RFID Data 
+6.	Get RFID Data
 7.	Get Camera OCR Result
 8.	Get Digital Input Data (Proximity Sensor Data NO/NC)
 
-     All Setting should be configure from web browser for the device.
+        All Setting should be configure from web browser for the device.
