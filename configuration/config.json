@@ -10,9 +10,9 @@
     "SER MQTT PORT" : "1883",
     "SER MQTT TOPIC": "Client Data",
 
-    "GPS MQTT URL"  : "www.qikkle.com",
+    "GPS MQTT URL"  : "127.0.0.1",
     "GPS MQTT PORT" : "1883",
-    "GPS MQTT TOPIC": "GPS Data",
+    "GPS MQTT TOPIC": "GPSData",
 
     "SYS REBOOT NOCON": "5",
     "SYS REBOOT TIME" : "12:00:00"

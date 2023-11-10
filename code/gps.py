@@ -12,14 +12,10 @@ ________________________________________________________________________________
 from header    import *
 from variable  import *
 from pynmeagps import NMEAReader
+from variable import _ERROR, _RESET, _SET
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-#standard definition 
-_ERROR = -1
-_RESET =  0
-_SET   =  1
-
 #enable/ disable the debugg
 _GPS_DEBUGG_PRINT = _RESET
 
@@ -71,8 +67,9 @@ def FnGPSParseRMC(frame):
       varlistgpsparameter[1] = str(GGAPara.time)
       varlistgpsparameter[2] = str(GGAPara.date)
       varlistgpsparameter[7] = str(GGAPara.spd)
-      PrintString = "ST=" + str(varlistgpsparameter[0]) + " T/D=" + str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]) + " LAT=" + str(varlistgpsparameter[3]) +" "+ str(varlistgpsparameter[4]) + " LON=" + str(varlistgpsparameter[5]) +" "+ str(varlistgpsparameter[6])
-      print(PrintString)
+      PrintString = "GPS: ST=" + str(varlistgpsparameter[0]) + " T/D=" + str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]) + " LAT=" + str(varlistgpsparameter[3]) +" "+ str(varlistgpsparameter[4]) + " LON=" + str(varlistgpsparameter[5]) +" "+ str(varlistgpsparameter[6])
+      #if _GPS_DEBUGG_PRINT == 1:
+      #   print(PrintString)
 
 #varlistgpsframetype = ["RMC","GGA","GSA","GSV","GPVTG","GLL","$PSTI,032","PSTMANTENNASTATUS"]
 #gprs frame parse
@@ -95,14 +92,14 @@ def FnGPSFrameParse(frame):
              varFrameType = _GPS_FRAME_TYPE_RMC   
              #put the data in log
              if _GPS_DEBUGG_PRINT == 1:
-                print("RMC Frame="+ str(varlistgpsRMC))
+                print("GPS: RMC Frame="+ str(varlistgpsRMC))
              #parse the frame   
              FnGPSParseRMC(frame)                  
           else:
              #_ERROR  indicate that the frame is unwanted
              varFrameType = _ERROR   
              if _GPS_DEBUGG_PRINT == 1:
-                print("RMC Frame error="+ str(frame))      
+                print("GPS: RMC Frame error="+ str(frame))      
 
     elif  frame.find(varlistgpsframetype[1]) != _ERROR : #GGA
           #check if the frame is proper or not            
@@ -115,20 +112,20 @@ def FnGPSFrameParse(frame):
              varFrameType = _GPS_FRAME_TYPE_GGA   
              #put the data in log
              if _GPS_DEBUGG_PRINT == 1:
-                print("GGA Frame="+ str(varlistgpsGGA))          
+                print("GPS: GGA Frame="+ str(varlistgpsGGA))          
              #parse the frame
              FnGPSParseGGA(frame)   
           else:
              #_ERROR  indicate that the frame is unwanted
              varFrameType = _ERROR   
              if _GPS_DEBUGG_PRINT == 1:
-                print("GGA Frame error="+ str(frame))                      
+                print("GPS: GGA Frame error="+ str(frame))                      
     else:  
           #_ERROR  indicate that the frame is unwanted
           varFrameType = _ERROR
           #put the data in log
           #if _GPS_DEBUGG_PRINT == 1:
-          #   print("Unknown Frame="+ str(frame))
+          #   print("GPS: Unknown Frame="+ str(frame))
     #return the frame type  
     return varFrameType  
 

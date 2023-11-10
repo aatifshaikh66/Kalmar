@@ -1,8 +1,8 @@
 '''_____________________________________________________________________________________
-@file name    : 2main.py
+@file name    : 1main.py
 @description  : This file contains all the required definition
 @started building on: 1.11.2022
-@last modification: 31.12.2022
+@last modification: 05.11.2023
 @author: Aatif Shaikh (v16he8m2@gmail.com)
 ________________________________________________________________________________________'''
 
@@ -10,31 +10,19 @@ ________________________________________________________________________________
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 #header file which contains all imports, definition and variable link
-from header   import *
-from variable import *
-from threads  import *
-from serials  import *
-from gps      import FnGPSFrameParse
-
-'''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---------------------------------------defines--------------------------------------
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-_ERROR = -1
-_RESET =  0
-_SET   =  1
+from variable import _ERROR, _RESET, _SET
+from system import FnSystemInit
+from timers import FnTimerOperation
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ------------------------------start of the code--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-str1= "$GNRMC,174246.00,A,1910.07591,N,07304.50456,E,0.043,,031222,,,A,V*10"
-str2= "$GNGGA,174246.00,1910.07591,N,07304.50456,E,1,07,1.98,67.0,M,-65.6,M,,*5F"
+######################################################################
 
-FnSerialInit( )
-#init the tread
-FnThreadStart( )
-
-nmr = FnGPSFrameParse(str1)
-
-while _SET:
-   pass
-
+if __name__ == '__main__':
+      #configure and init all the peripherals
+      FnSystemInit ( )
+      
+      #infinite loop
+      while _SET:
+            FnTimerOperation( )

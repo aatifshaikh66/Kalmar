@@ -10,17 +10,13 @@ ________________________________________________________________________________
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 from header   import *
-from variable import *
 from serials  import *
-
+from variable import _ERROR, _RESET, _SET
+from timers   import  FnTimerInterrupt
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-_ERROR = -1
-_RESET =  0
-_SET   =  1
-
 #enable/ disable the debugg
 _THREAD_DEBUGG_PRINT = _SET
 
@@ -30,10 +26,18 @@ _THREAD_DEBUGG_PRINT = _SET
 
 def FnThreadStart( ):
     try:
-        ThreadObj= Thread(target=FnSerialReceive)
-        ThreadObj.start()
+        ThreadObj1= Thread(target=FnSerialReceive)
+        ThreadObj1.start()
         if _THREAD_DEBUGG_PRINT == _SET: 
-            print ("Thread started successfully\n\r")      
+            print ("Thread1 started successfully")      
     except:
         if _THREAD_DEBUGG_PRINT == _SET: 
-            print ("Error: unable to start thread\n\r")
+            print ("Error: unable to start thread1")
+    try:
+        ThreadObj2= Thread(target=FnTimerInterrupt)
+        ThreadObj2.start()
+        if _THREAD_DEBUGG_PRINT == _SET: 
+            print ("Thread2 started successfully")      
+    except:
+        if _THREAD_DEBUGG_PRINT == _SET: 
+            print ("Error: unable to start thread2")            

@@ -29,5 +29,8 @@ from locale  import atof
                     #port, baudrate, parity, stopbit, bytesize,timeout 
 configGPSComPort   =["/dev/ttyS2",115200,'N',1,8,1]
 configRFIDComPort  =["/dev/ttyS3",115200,'N',1,8,1]
+configMQTTComPort  =["/dev/ttyS4",115200,'N',1,8,1]
 
+#update later
+ConfigFileLocation = "configuration/config.json"
 

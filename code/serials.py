@@ -10,32 +10,30 @@ ________________________________________________________________________________
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 from header   import *
-from variable import *
+from variable import _ERROR, _RESET, _SET
 from gps      import FnGPSFrameParse
-
-'''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---------------------------------------defines--------------------------------------
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-_ERROR = -1
-_RESET =  0
-_SET   =  1
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 GPSSerialFileStream  = _RESET
 RFIDSerialFileStream = _RESET
+MQTTSerialFileStream = _RESET
+
 
 #enable/ disable the debugg
-SERIAL_DEBUGG_PRINT = _RESET
+SERIAL_DEBUGG_PRINT = _SET
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------Function definition---------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 ######################################################################
 def FnSerialInit( ):
+
     global GPSSerialFileStream
     global RFIDSerialFileStream
+    global MQTTSerialFileStream
+    
     try:
         #open the serial port
         GPSSerialFileStream = serial.Serial(
@@ -74,6 +72,26 @@ def FnSerialInit( ):
         if SERIAL_DEBUGG_PRINT == _SET:
             print("SERIAL: RFID serial unable to open!\r")
 
+    try:
+        #open the serial port
+        MQTTSerialFileStream = serial.Serial(
+        port    =configMQTTComPort[0],\
+        baudrate=configMQTTComPort[1],\
+        parity  =configMQTTComPort[2],\
+        stopbits=configMQTTComPort[3],\
+        bytesize=configMQTTComPort[4],\
+        timeout =configMQTTComPort[5])
+        #flush and clean the input and out buffer
+        MQTTSerialFileStream.reset_input_buffer( )
+        MQTTSerialFileStream.reset_output_buffer( )        
+        MQTTSerialFileStream.write()
+        if SERIAL_DEBUGG_PRINT == _SET:
+            print("SERIAL: MQTT serial init!\r")
+    except:
+        MQTTSerialFileStream = _ERROR
+        if SERIAL_DEBUGG_PRINT == _SET:
+            print("SERIAL: MQTT serial unable to open!\r")
+
 
 ######################################################################
 def FnSerialGPSCheck(GPSString):
@@ -104,7 +122,14 @@ def FnSerialReceive( ):
             while  RFIDSerialFileStream.in_waiting:  # Or: while ser.inWaiting():
                    RFIDString = RFIDSerialFileStream.readline( ).decode("utf-8")
 
-
         #--------------------------------------------------------                       
-        time.sleep(.2/100)            
+        time.sleep(0.01)            
 
+######################################################################
+def FnSerialGSPWrite(data):
+    global MQTTSerialFileStream
+    
+    #--------------------------------------------------------
+    if MQTTSerialFileStream != _ERROR:    
+        MQTTSerialFileStream.write(data)
+        MQTTSerialFileStream.flush()
