@@ -9,10 +9,10 @@ ________________________________________________________________________________
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-from time import sleep
+from time import      sleep
 from variable import _SET,_RESET,_ERROR
-from variable import varMQTTStatus
-from mqttsub import FnMQTTReconnect
+from variable import  varDeviceStatus
+from mqttsub import   FnMQTTManagment
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
@@ -37,7 +37,7 @@ TimerMQTTCount  = _RESET
 def FnTimerInterrupt( ):
     global TimerCount100, TimerCountSec, TimerCountMin, TimerCountHour
     global TimerFlagSec,  TimerFlagMin,  TimerFlagHour 
-    
+
     while True:
         sleep(0.1)
         TimerCount100 += 1
@@ -61,19 +61,19 @@ def FnTimerInterrupt( ):
 def FnTimerOperation( ):
     global TimerCount100, TimerCountSec, TimerCountMin, TimerCountHour
     global TimerFlagSec,  TimerFlagMin,  TimerFlagHour 
-    global TimerMQTTConnect, TimerMQTTCount 
-    global varMQTTStatus
+    global TimerMQTTConnect, TimerMQTTCount
 
     if TimerFlagSec == 1:
             TimerFlagSec  = _RESET
             timerStr = "T-"+str(TimerCountHour)+":"+str(TimerCountMin)+":"+str(TimerCountSec) 
-            print(timerStr + " M-"+ str(varMQTTStatus))
+            print(timerStr + " M-"+ str(varDeviceStatus["MQTTStatus"]))
 
-            if varMQTTStatus == _RESET:               
+            if varDeviceStatus["MQTTStatus"] == _RESET:
                 TimerMQTTCount += 1
+                print(TimerMQTTCount)
                 if TimerMQTTCount == TimerMQTTConnect:
                       TimerMQTTCount = _RESET
-                      FnMQTTReconnect( )                    
+                      FnMQTTManagment( )
             else:
                   TimerMQTTCount = _RESET
                    

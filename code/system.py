@@ -12,7 +12,7 @@ ________________________________________________________________________________
 from     header     import *
 from     variable   import SystemConfigPara
 from     variable   import _ERROR, _RESET, _SET
-from     mqttsub    import FnMQTTConnect,FnMQTTSubscribe
+from     mqttsub    import FnMQTTManagment
 from     serials    import FnSerialInit
 from     threads    import FnThreadStart
 import   json
@@ -62,7 +62,8 @@ def FnSystemInit( ):
     #init the tread / serail receive function
     FnThreadStart( )
 
-    FnMQTTConnect( )
+    #initiate the MQTT connect
+    FnMQTTManagment( )
 
     if SYSTEM_DEBUGG_PRINT == _SET:        
         print("SYSTEM: System init process Completed!")

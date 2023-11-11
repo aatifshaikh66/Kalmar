@@ -28,7 +28,10 @@ varlistgpsGSA = []
 #an example frame of GGA frame
 varlistgpsparameter = ["","","","","","","","","","","",""]
 
-varMQTTStatus = _RESET
+
+varDeviceStatus = {
+    "MQTTStatus"  : _RESET
+}
 
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

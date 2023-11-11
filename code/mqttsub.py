@@ -11,7 +11,7 @@ ________________________________________________________________________________
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
 from paho.mqtt  import client as GPSMQTTClient
-from variable   import SystemConfigPara, varMQTTStatus
+from variable   import SystemConfigPara, varDeviceStatus
 from variable   import _ERROR, _RESET, _SET
 from serials    import FnSerialGSPWrite
 from time       import sleep
@@ -29,47 +29,48 @@ MQTTClient = GPSMQTTClient
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------Function definition---------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-######################################################################
-def FnMQTTReconnect( ):
-    global MQTTClient
-    try:    
-        MQTTClient.connect(host=SystemConfigPara["SystemGPSMQTTURL"], 
-                      port=int(SystemConfigPara["SystemGPSMQTTPORT"]))
-        MQTTClient.loop_start( )
-    except:
-        if  MQTT_DEBUGG_PRINT == _SET:
-            print("MQTT: Unable to connect")
-    return MQTTClient
 
 ######################################################################
-def FnMQTTConnect( ) -> GPSMQTTClient:
-    global MQTTClient, varMQTTStatus
+def FnMQTTManagment( ) -> GPSMQTTClient:
+    global MQTTClient
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
-            varMQTTStatus = _SET
             FnMQTTSubscribe(client)
+            varDeviceStatus["MQTTStatus"] = _SET            
             if  MQTT_DEBUGG_PRINT == _SET:
                 sleep(0.01)
                 print("MQTT: Connected to MQTT Broker")
         else:
-            varMQTTStatus = _RESET
+            varDeviceStatus["MQTTStatus"] = _RESET
             FnMQTTSubscribe(client)
             if  MQTT_DEBUGG_PRINT == _SET:
                 print("Failed to connect, return code %d", rc)
+    ######################################################################               
     def on_disconnect(client, userdata, rc):
         client.disconnect( )
-        varMQTTStatus = _RESET
+        varDeviceStatus["MQTTStatus"] = _RESET
         if  MQTT_DEBUGG_PRINT == _SET:
             sleep(0.01)
             print("MQTT: Disconnected!")
-
+    ######################################################################
+    def FnMQTTConnect(client: GPSMQTTClient):
+        try:
+            client.connect(host=SystemConfigPara["SystemGPSMQTTURL"], 
+                        port=int(SystemConfigPara["SystemGPSMQTTPORT"]))
+            client.loop_start( )
+        except:
+            if  MQTT_DEBUGG_PRINT == _SET:
+                print("MQTT: Unable to connect")
 
     # Set Connecting Client ID
     MQTTClient = GPSMQTTClient.Client(SystemConfigPara["SystemIMEI"])
     # client.username_pw_set(username, password)
     MQTTClient.on_connect    = on_connect
     MQTTClient.on_disconnect = on_disconnect
-    FnMQTTReconnect( )
+    FnMQTTConnect(MQTTClient)
+
+
+
 
 
 ######################################################################
