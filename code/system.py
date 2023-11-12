@@ -44,7 +44,7 @@ def FnSystemGetConfig( ):
             SystemConfigPara["SystemGPSMQTTTOPIC"] = JsonConfig["GPS MQTT TOPIC"]
             SystemConfigPara["SystemREBOOTNOCON"]  = JsonConfig["SYS REBOOT NOCON"]
             SystemConfigPara["SystemREBOOTTIME"]   = JsonConfig["SYS REBOOT TIME"]
-            SystemConfigPara["SystemHealthPacket"] = JsonConfig["Health TIME"]
+            SystemConfigPara["SystemHealthPacket"] = JsonConfig["HEALTH TIME"]
             
     except Exception as error:
         if SYSTEM_DEBUGG_PRINT == _SET:        

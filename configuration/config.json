@@ -17,6 +17,6 @@
     "SYS REBOOT NOCON": "5",
     "SYS REBOOT TIME" : "12:00:00",
 
-    "Health TIME"   : "5"
+    "HEALTH TIME"   : "150"
 
 }
