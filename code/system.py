@@ -10,13 +10,14 @@ ________________________________________________________________________________
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 from     header     import *
-from     variable   import SystemConfigPara
+from     variable   import SystemConfigPara, HttpCurrentData
 from     variable   import _ERROR, _RESET, _SET
 from     mqttsub    import FnMQTTManagment
 from     serials    import FnSerialInit
 from     threads    import FnThreadStart
+from     storage    import FnFileGetFrameNumber
 import   json
-from os import system
+
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
@@ -43,10 +44,12 @@ def FnSystemGetConfig( ):
             SystemConfigPara["SystemGPSMQTTTOPIC"] = JsonConfig["GPS MQTT TOPIC"]
             SystemConfigPara["SystemREBOOTNOCON"]  = JsonConfig["SYS REBOOT NOCON"]
             SystemConfigPara["SystemREBOOTTIME"]   = JsonConfig["SYS REBOOT TIME"]
-
+            SystemConfigPara["SystemHealthPacket"] = JsonConfig["Health TIME"]
+            
     except Exception as error:
         if SYSTEM_DEBUGG_PRINT == _SET:        
             print("SYSTEM: "+str(error))
+
 
 ######################################################################
 def FnSystemInit( ):
@@ -55,6 +58,7 @@ def FnSystemInit( ):
 
     #open the file and read all the configuration
     FnSystemGetConfig( )
+    HttpCurrentData["FRAME_NUMBER"] = FnFileGetFrameNumber( )
 
     #serial ports init
     FnSerialInit( )
@@ -67,4 +71,6 @@ def FnSystemInit( ):
 
     if SYSTEM_DEBUGG_PRINT == _SET:        
         print("SYSTEM: System init process Completed!")
+
+
 

@@ -1,16 +1,16 @@
 
-from timeloop import Timeloop
-from datetime import timedelta
+import requests
+from time import sleep
 
-tl = Timeloop( )
+url = 'http://192.168.0.108:8000/'
+query = "This is just a random data to test\n"
 
-@tl.job(interval=timedelta(milliseconds=100))
-def FnTimerInterrupt( ):
-    #print("2s job current time : "+ time.ctime())
-    print()
-    
-if __name__ == "__main__":
-    tl.start(block=False)
-    print("in main")
-    while True:
-        None
+while True:
+    sleep(1)
+    try:
+        print("Sending data")
+        res = requests.post(url, data=query)   
+        if res.ok:
+            print(res.ok)
+    except:
+        print("error")

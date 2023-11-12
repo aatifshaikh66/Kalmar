@@ -9,10 +9,14 @@ ________________________________________________________________________________
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-from header    import *
-from variable  import *
+
+
+from io import StringIO
+import csv
 from pynmeagps import NMEAReader
+from variable  import *
 from variable import _ERROR, _RESET, _SET
+
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
@@ -67,7 +71,7 @@ def FnGPSParseRMC(frame):
       varlistgpsparameter[1] = str(GGAPara.time)
       varlistgpsparameter[2] = str(GGAPara.date)
       varlistgpsparameter[7] = str(GGAPara.spd)
-      PrintString = "GPS: ST=" + str(varlistgpsparameter[0]) + " T/D=" + str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]) + " LAT=" + str(varlistgpsparameter[3]) +" "+ str(varlistgpsparameter[4]) + " LON=" + str(varlistgpsparameter[5]) +" "+ str(varlistgpsparameter[6])
+      #PrintString = "GPS: ST=" + str(varlistgpsparameter[0]) + " T/D=" + str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]) + " LAT=" + str(varlistgpsparameter[3]) +" "+ str(varlistgpsparameter[4]) + " LON=" + str(varlistgpsparameter[5]) +" "+ str(varlistgpsparameter[6])
       #if _GPS_DEBUGG_PRINT == 1:
       #   print(PrintString)
 

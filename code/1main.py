@@ -18,11 +18,12 @@ from timers import FnTimerOperation
 ------------------------------start of the code--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 ######################################################################
-
 if __name__ == '__main__':
       #configure and init all the peripherals
       FnSystemInit ( )
       
       #infinite loop
       while _SET:
+            #periodic time operation
             FnTimerOperation( )
+

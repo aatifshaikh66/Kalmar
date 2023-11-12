@@ -29,6 +29,14 @@ MQTTClient = GPSMQTTClient
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------Function definition---------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+######################################################################
+def FnMQTTSubscribe(client: GPSMQTTClient):
+    def on_message(client, userdata, msg):
+        FnSerialGSPWrite(msg.payload)
+        print(msg.payload.decode())
+
+    client.subscribe(SystemConfigPara["SystemGPSMQTTTOPIC"])
+    client.on_message = on_message
 
 ######################################################################
 def FnMQTTManagment( ) -> GPSMQTTClient:
@@ -68,17 +76,4 @@ def FnMQTTManagment( ) -> GPSMQTTClient:
     MQTTClient.on_connect    = on_connect
     MQTTClient.on_disconnect = on_disconnect
     FnMQTTConnect(MQTTClient)
-
-
-
-
-
-######################################################################
-def FnMQTTSubscribe(client: GPSMQTTClient):
-    def on_message(client, userdata, msg):
-        FnSerialGSPWrite(msg.payload)
-        print(msg.payload.decode())
-
-    client.subscribe(SystemConfigPara["SystemGPSMQTTTOPIC"])
-    client.on_message = on_message
 

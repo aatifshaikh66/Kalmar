@@ -9,19 +9,6 @@ ________________________________________________________________________________
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-from io import StringIO
-import csv
-import time
-import os
-import serial
-import datetime
-import locale
-import serial
-
-from threading import Thread 
-from stat    import S_IWUSR
-from stat    import S_IREAD, S_IRGRP, S_IROTH
-from locale  import atof
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------imports--------------------------------------
@@ -32,5 +19,12 @@ configRFIDComPort  =["/dev/ttyS3",115200,'N',1,8,1]
 configMQTTComPort  =["/dev/ttyS4",115200,'N',1,8,1]
 
 #update later
+#Configuration file
 ConfigFileLocation = "configuration/config.json"
+
+#History File
+LogsHistorFileLocation = "logs/history.txt"
+
+#FrameNumber File
+DeviceFrameNoFileLocation = "devicestatus/framecount.txt" 
 

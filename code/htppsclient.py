@@ -2,7 +2,7 @@
 @file name    : threads.py
 @description  : This file contains all the required definition
 @started building on: 1.11.2022
-@last modification: 1.11.2022
+@last modification: 31.12.2022
 @author: Aatif Shaikh (v16he8m2@gmail.com)
 ________________________________________________________________________________________'''
 
@@ -10,35 +10,31 @@ ________________________________________________________________________________
 ---------------------------------imports--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
-from threading import Thread 
-from variable import _ERROR, _RESET, _SET
-from timers   import  FnTimerInterrupt
-from serials import FnSerialReceive
+import requests
+from   variable   import SystemConfigPara,HttpCurrentData
+from   variable   import _ERROR,_RESET,_SET
+from   storage    import FnFileStoreHistor,FnFileUpdateFrameNumber
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+
 #enable/ disable the debugg
-_THREAD_DEBUGG_PRINT = _SET
+STORAGE_DEBUGG_PRINT = _RESET
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------Function definition---------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+######################################################################
+def FnHTTPDataSend(SendData):
+    try:
+        print("Sending data")
+        FnFileUpdateFrameNumber(HttpCurrentData["FRAME_NUMBER"])
+        res = requests.post(SystemConfigPara["SystemHTTPURL"], data=SendData)   
+        if res.ok != True:
+            if STORAGE_DEBUGG_PRINT == _SET:
+                print("HTTP: Unable to store")
+    except:
+        if STORAGE_DEBUGG_PRINT == _SET:
+            print("HTTP: Unable to store")
 
-def FnThreadStart( ):
-    try:
-        ThreadObj1= Thread(target=FnSerialReceive)
-        ThreadObj1.start( )
-        if _THREAD_DEBUGG_PRINT == _SET: 
-            print ("Thread1 started successfully")      
-    except:
-        if _THREAD_DEBUGG_PRINT == _SET: 
-            print ("Error: unable to start thread1")
-    try:
-        ThreadObj2= Thread(target=FnTimerInterrupt)
-        ThreadObj2.start( )
-        if _THREAD_DEBUGG_PRINT == _SET: 
-            print ("Thread2 started successfully")      
-    except:
-        if _THREAD_DEBUGG_PRINT == _SET: 
-            print ("Error: unable to start thread2")            

@@ -26,11 +26,12 @@ varlistgpsGGA = []
 #an example frame of GSA frame
 varlistgpsGSA = []
 #an example frame of GGA frame
-varlistgpsparameter = ["","","","","","","","","","","",""]
+varlistgpsparameter = ["0","0/0/0","0:0:0","12.12","S","21.21","N","0.0","0","","",""]
 
 
 varDeviceStatus = {
-    "MQTTStatus"  : _RESET
+    "MQTTStatus"  : _RESET,
+    "HTTPStatus"  : _RESET
 }
 
 
@@ -47,6 +48,18 @@ SystemConfigPara = {
 "SystemGPSMQTTPORT"  : "1883",
 "SystemGPSMQTTTOPIC" : "GPS Data",
 "SystemREBOOTNOCON"  : "5",
-"SystemREBOOTTIME"   : "00:00:05"
+"SystemREBOOTTIME"   : "00:00:05",
+"SystemHealthPacket" : "70"
 } 
 
+HttpCurrentData = {
+"FRAME_NUMBER": "0",
+"FRAME_TYPE"  : "HEALTH", #HEALTH, DATA
+"LOCK_UNLOCK" : "NONE",   #NONE, LOCK, UNLOCK
+"GPS_STATUS"  :  str(varlistgpsparameter[0]),
+"Date_Time"   :  str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]),
+"LAT"         :  str(varlistgpsparameter[3]),
+"LAT_DIR"     :  str(varlistgpsparameter[4]),
+"LON"         :  str(varlistgpsparameter[5]), 
+"LON_DIR"     :  str(varlistgpsparameter[6])
+}
