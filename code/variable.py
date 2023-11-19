@@ -50,16 +50,17 @@ SystemConfigPara = {
 "SystemREBOOTNOCON"  : "5",
 "SystemREBOOTTIME"   : "00:00:05",
 "SystemHealthPacket" : "70"
-} 
+}
 
 HttpCurrentData = {
 "FRAME_NUMBER": "0",
 "FRAME_TYPE"  : "HEALTH", #HEALTH, DATA
 "LOCK_UNLOCK" : "NONE",   #NONE, LOCK, UNLOCK
-"GPS_STATUS"  :  str(varlistgpsparameter[0]),
-"Date_Time"   :  str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]),
-"LAT"         :  str(varlistgpsparameter[3]),
-"LAT_DIR"     :  str(varlistgpsparameter[4]),
-"LON"         :  str(varlistgpsparameter[5]), 
-"LON_DIR"     :  str(varlistgpsparameter[6])
+"GPS_STATUS"  :  str(varlistgpsparameter[0]), #0 to 5
+"Date_Time"   :  str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]), #12-12-12 12:12:12 
+"LAT"         :  str(varlistgpsparameter[3]), #12.23
+"LAT_DIR"     :  str(varlistgpsparameter[4]), #NS
+"LON"         :  str(varlistgpsparameter[5]), #12.23
+"LON_DIR"     :  str(varlistgpsparameter[6])  #SW
+#add your parameter heres
 }
