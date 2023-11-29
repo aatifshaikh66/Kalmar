@@ -55,6 +55,7 @@ SystemConfigPara = {
 HttpCurrentData = {
 "FRAME_NUMBER": "0",
 "FRAME_TYPE"  : "HEALTH", #HEALTH, DATA
+"LIVE_HISTORY": "LIVE",
 "LOCK_UNLOCK" : "NONE",   #NONE, LOCK, UNLOCK
 "GPS_STATUS"  :  str(varlistgpsparameter[0]), #0 to 5
 "Date_Time"   :  str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]), #12-12-12 12:12:12 

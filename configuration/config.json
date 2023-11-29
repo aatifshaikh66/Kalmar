@@ -4,7 +4,7 @@
     "SER TCPIP"     : "12.12.12.12",
     "SER TCPPORT"   : "2202",
 
-    "SER HTTP URL"  : "http://192.168.0.108:8000/",
+    "SER HTTP URL"  : "http://192.168.1.15:8000/",
 
     "SER MQTT URL"  : "www.qikkle.com",
     "SER MQTT PORT" : "1883",
@@ -17,6 +17,6 @@
     "SYS REBOOT NOCON": "5",
     "SYS REBOOT TIME" : "12:00:00",
 
-    "HEALTH TIME"   : "150"
+    "HEALTH TIME"   : "10"
 
 }
