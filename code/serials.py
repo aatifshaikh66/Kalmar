@@ -117,8 +117,8 @@ def FnSerialReceive( ):
                    #check if the frame is not broken!
                    if FnSerialGPSCheck(GPSString) == _SET:                
                        FnGPSFrameParse(GPSString)                 
-                   if SERIAL_DEBUGG_PRINT == _SET:
-                       print(str(GPSString) + str('\r'))
+                   #if SERIAL_DEBUGG_PRINT == _SET:
+                   #    print(str(GPSString) + str('\r'))
 
         #--------------------------------------------------------
         if RFIDSerialFileStream != _ERROR:

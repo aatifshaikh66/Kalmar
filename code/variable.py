@@ -26,12 +26,14 @@ varlistgpsGGA = []
 #an example frame of GSA frame
 varlistgpsGSA = []
 #an example frame of GGA frame
-varlistgpsparameter = ["0","0/0/0","0:0:0","12.12","S","21.21","N","0.0","0","","",""]
+varlistgpsparameter = ["0","0/0/0","0:0:0","12.12","S","21.21","N","0.0","0","0","",""]
 
 
 varDeviceStatus = {
     "MQTTStatus"  : _RESET,
-    "HTTPStatus"  : _RESET
+    "HTTPStatus"  : _RESET,
+    "MQTTByte"	  : _RESET
+
 }
 
 
@@ -39,7 +41,10 @@ varDeviceStatus = {
 --------------------------------------Configuration----------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
+#qikkle.com:8084/GPS/Api/SendDeviceData
+
 SystemConfigPara = {
+"SystemVehicle"   : "RS-01",    
 "SystemIMEI"      : "NO-IMEI",
 "SystemTCPIP"     : "127.0.0.1",
 "SystemTCPPORT"   : "20202",
@@ -53,15 +58,22 @@ SystemConfigPara = {
 }
 
 HttpCurrentData = {
-"FRAME_NUMBER": "0",
-"FRAME_TYPE"  : "HEALTH", #HEALTH, DATA
-"LIVE_HISTORY": "LIVE",
+"Vehicle_No"  : SystemConfigPara["SystemVehicle"],
+"DeviceIMEI"  : SystemConfigPara["SystemIMEI"],
+"FRAME_TYPE"  : 0,#"HEALTH", #HEALTH, DATA
+"Last_Container": "00012345",
 "LOCK_UNLOCK" : "NONE",   #NONE, LOCK, UNLOCK
 "GPS_STATUS"  :  str(varlistgpsparameter[0]), #0 to 5
 "Date_Time"   :  str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]), #12-12-12 12:12:12 
 "LAT"         :  str(varlistgpsparameter[3]), #12.23
 "LAT_DIR"     :  str(varlistgpsparameter[4]), #NS
 "LON"         :  str(varlistgpsparameter[5]), #12.23
-"LON_DIR"     :  str(varlistgpsparameter[6])  #SW
-#add your parameter heres
+"LON_DIR"     :  str(varlistgpsparameter[6]), #SW
+"Speed"       :  str(varlistgpsparameter[7]),
+"Altitude"    :  str(varlistgpsparameter[8]),
+"Satellite_count" : str(varlistgpsparameter[9]),
+"Height"      : "0",
+"Analog"      : "0.0",
+"Digital"     : "0",
+"FRAME_NUMBER": "0"
 }

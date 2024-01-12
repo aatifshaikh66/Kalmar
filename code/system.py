@@ -23,8 +23,6 @@ import   json
 --------------------------------------defines--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 
-#enable/ disable the debugg
-SYSTEM_DEBUGG_PRINT = _SET
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ------------------------------start of the code--------------------------------------
@@ -47,13 +45,14 @@ def FnSystemGetConfig( ):
             SystemConfigPara["SystemHealthPacket"] = JsonConfig["HEALTH TIME"]
             
     except Exception as error:
-        if SYSTEM_DEBUGG_PRINT == _SET:        
+        if SystemDebugEnable == 1:        
             print("SYSTEM: "+str(error))
 
 
 ######################################################################
 def FnSystemInit( ):
-    if SYSTEM_DEBUGG_PRINT == _SET:        
+	
+    if SystemDebugEnable == _SET:        
         print("SYSTEM: System init process started!")
 
     #open the file and read all the configuration
@@ -69,7 +68,7 @@ def FnSystemInit( ):
     #initiate the MQTT connect
     FnMQTTManagment( )
 
-    if SYSTEM_DEBUGG_PRINT == _SET:        
+    if SystemDebugEnable == _SET:        
         print("SYSTEM: System init process Completed!")
 
 

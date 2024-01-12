@@ -56,21 +56,28 @@ def FnGPSFrameErrorCheck (frame,type):
 #parse the GGA frame, note* here frame is a list
 def FnGPSParseGGA(frame):
       
+      TempList = frame.split(",")
+      if (TempList[6]):
+         varlistgpsparameter[0] = TempList[6]
+      else:
+         varlistgpsparameter[0] = '0'
+      
       GGAPara = NMEAReader.parse(str(frame))
       varlistgpsparameter[3] = str(GGAPara.lat)
       varlistgpsparameter[4] = str(GGAPara.NS)
       varlistgpsparameter[5] = str(GGAPara.lon)
       varlistgpsparameter[6] = str(GGAPara.EW)
       varlistgpsparameter[8] = str(GGAPara.alt)                  
+      varlistgpsparameter[9] = str(GGAPara.numSV)
 
 #parse the RMC frame, note* here frame is a list
 def FnGPSParseRMC(frame):
-      
-      GGAPara = NMEAReader.parse(str(frame))
-      varlistgpsparameter[0] = str(GGAPara.status)
-      varlistgpsparameter[1] = str(GGAPara.time)
-      varlistgpsparameter[2] = str(GGAPara.date)
-      varlistgpsparameter[7] = str(GGAPara.spd)
+      #nsats
+      RMCPara = NMEAReader.parse(str(frame))
+      #varlistgpsparameter[0] = str(GGAPara.status)
+      varlistgpsparameter[1] = str(RMCPara.time)
+      varlistgpsparameter[2] = str(RMCPara.date)
+      varlistgpsparameter[7] = str(RMCPara.spd)
       #PrintString = "GPS: ST=" + str(varlistgpsparameter[0]) + " T/D=" + str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]) + " LAT=" + str(varlistgpsparameter[3]) +" "+ str(varlistgpsparameter[4]) + " LON=" + str(varlistgpsparameter[5]) +" "+ str(varlistgpsparameter[6])
       #if _GPS_DEBUGG_PRINT == 1:
       #   print(PrintString)

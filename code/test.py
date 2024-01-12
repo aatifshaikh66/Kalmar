@@ -1,16 +1,4 @@
+from pynmeagps import NMEAReader
 
-import requests
-from time import sleep
-
-url = 'http://192.168.0.108:8000/'
-query = "This is just a random data to test\n"
-
-while True:
-    sleep(1)
-    try:
-        print("Sending data")
-        res = requests.post(url, data=query)   
-        if res.ok:
-            print(res.ok)
-    except:
-        print("error")
+strr = "$GPGGA,123519,4807.038,N,01131.000,E,1,08,,545.440,M,,,,*3C\r\n"
+print(NMEAReader.parse(strr))

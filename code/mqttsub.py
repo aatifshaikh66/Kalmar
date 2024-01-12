@@ -33,7 +33,7 @@ MQTTClient = GPSMQTTClient
 def FnMQTTSubscribe(client: GPSMQTTClient):
     def on_message(client, userdata, msg):
         FnSerialGSPWrite(msg.payload)
-        print(msg.payload.decode())
+        varDeviceStatus["MQTTByte"] = len(msg.payload)
 
     client.subscribe(SystemConfigPara["SystemGPSMQTTTOPIC"])
     client.on_message = on_message

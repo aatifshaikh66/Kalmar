@@ -28,9 +28,9 @@ STORAGE_DEBUGG_PRINT = _RESET
 ######################################################################
 def FnHTTPDataSend(SendData):
     try:
-        print("Sending data")
+        print(SendData)
         FnFileUpdateFrameNumber(HttpCurrentData["FRAME_NUMBER"])
-        res = requests.post(SystemConfigPara["SystemHTTPURL"], data=SendData)   
+        res = requests.post(SystemConfigPara["SystemHTTPURL"], data=SendData, timeout= 10)   
         if res.ok != True:
             if STORAGE_DEBUGG_PRINT == _SET:
                 print("HTTP: Unable to store")

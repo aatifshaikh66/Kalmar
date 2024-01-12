@@ -11,11 +11,11 @@ ________________________________________________________________________________
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 from time     import   sleep
 from variable import  _SET,_RESET,_ERROR
-from variable import   varDeviceStatus, SystemConfigPara, HttpCurrentData
+from variable import   varDeviceStatus, SystemConfigPara, HttpCurrentData, varlistgpsparameter
 from mqttsub  import   FnMQTTManagment
 from htppsclient import FnHTTPDataSend
 from datetime import   datetime
-
+from header   import   TimerDebugEnable
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
@@ -34,6 +34,8 @@ TimerMQTTConnect  = 35
 TimerMQTTCount    = _RESET
 
 TimerHealthPacket = 0
+
+
 
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,7 +72,14 @@ def FnTimerGetDateAndTime( ):
         # dd/mm/YY H:M:S
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         return dt_string
-        
+
+######################################################################
+def FnBuildHealthFrame( ):
+    if HttpCurrentData["FRAME_NUMBER"] is None: 
+       HttpCurrentData["FRAME_NUMBER"] = 1
+
+    HttpCurrentData["FRAME_NUMBER"] = str(int(HttpCurrentData["FRAME_NUMBER"]) + 1)
+    FnHTTPDataSend(HttpCurrentData)
 
 ######################################################################
 def FnTimerOperation( ):
@@ -81,8 +90,12 @@ def FnTimerOperation( ):
 
     if TimerFlagSec == 1:
         TimerFlagSec  = _RESET
-        timerStr = "T-"+str(TimerCountHour)+":"+str(TimerCountMin)+":"+str(TimerCountSec) 
-        print(timerStr + " M-"+ str(varDeviceStatus["MQTTStatus"]))
+
+        if TimerDebugEnable == 1:
+                timerStr = "T-" + str(TimerCountHour) + ":" + str(TimerCountMin) + ":" + str(TimerCountSec) 
+                GPSStr	 = " G-" + str(varlistgpsparameter[0])
+                MQTTStr  = " M-"+ str(varDeviceStatus["MQTTStatus"]) + " D-" + str(varDeviceStatus["MQTTByte"])
+                print(timerStr + GPSStr + MQTTStr)
 
         if varDeviceStatus["MQTTStatus"] == _RESET:
                 TimerMQTTCount += 1
@@ -90,15 +103,16 @@ def FnTimerOperation( ):
                 if TimerMQTTCount == TimerMQTTConnect:
                         TimerMQTTCount = _RESET
                         FnMQTTManagment( )
-                else:
-                        TimerMQTTCount = _RESET
+        else:
+                TimerMQTTCount = _RESET
 
         if varDeviceStatus["HTTPStatus"] == _RESET:
                 TimerHealthPacket += 1
                 if int(SystemConfigPara["SystemHealthPacket"]) == TimerHealthPacket:
                         TimerHealthPacket = _RESET
-                        HttpCurrentData["FRAME_NUMBER"] = str(int(HttpCurrentData["FRAME_NUMBER"]) + 1)
-                        FnHTTPDataSend(HttpCurrentData)
+                        FnBuildHealthFrame( )
+                        
+                        
         else:
                TimerHealthPacket = _RESET
-               
+              

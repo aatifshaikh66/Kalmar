@@ -10,9 +10,9 @@
     "SER MQTT PORT" : "1883",
     "SER MQTT TOPIC": "Client Data",
 
-    "GPS MQTT URL"  : "127.0.0.1",
+    "GPS MQTT URL"  : "117.240.162.69",
     "GPS MQTT PORT" : "1883",
-    "GPS MQTT TOPIC": "GPSData",
+    "GPS MQTT TOPIC": "RTK_PALI",
 
     "SYS REBOOT NOCON": "5",
     "SYS REBOOT TIME" : "12:00:00",
