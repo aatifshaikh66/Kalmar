@@ -14,13 +14,11 @@ import requests
 from   variable   import SystemConfigPara,HttpCurrentData
 from   variable   import _ERROR,_RESET,_SET
 from   storage    import FnFileStoreHistor,FnFileUpdateFrameNumber
+from   header     import HttpDebugEnable
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --------------------------------------defines--------------------------------------
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-
-#enable/ disable the debugg
-STORAGE_DEBUGG_PRINT = _RESET
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ---------------------------------Function definition---------------------------------
@@ -28,13 +26,17 @@ STORAGE_DEBUGG_PRINT = _RESET
 ######################################################################
 def FnHTTPDataSend(SendData):
     try:
-        print(SendData)
+        if HttpDebugEnable == _SET:        
+            print("Sending Data: " + str(SendData))
         FnFileUpdateFrameNumber(HttpCurrentData["FRAME_NUMBER"])
         res = requests.post(SystemConfigPara["SystemHTTPURL"], data=SendData, timeout= 10)   
         if res.ok != True:
-            if STORAGE_DEBUGG_PRINT == _SET:
-                print("HTTP: Unable to store")
+            if HttpDebugEnable == _SET:
+                print("HTTP: Unable to Send")
+        else:
+            if HttpDebugEnable == _SET:
+                print("HTTP: Data Successfully Send")            
     except:
-        if STORAGE_DEBUGG_PRINT == _SET:
-            print("HTTP: Unable to store")
+        if HttpDebugEnable == _SET:
+            print("HTTP: Unable to connect to connecct to server!")
 

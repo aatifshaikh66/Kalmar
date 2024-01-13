@@ -34,7 +34,7 @@ def FnSystemGetConfig( ):
     try: 
         with open(ConfigFileLocation,"r") as JsonConfig:
             JsonConfig = json.load(JsonConfig)
-
+            SystemConfigPara["SystemVehicle"]      = JsonConfig["VEHICLE NUMBER"]
             SystemConfigPara["SystemIMEI"]         = JsonConfig["IMEI"]
             SystemConfigPara["SystemHTTPURL"]      = JsonConfig["SER HTTP URL"]
             SystemConfigPara["SystemGPSMQTTURL"]   = JsonConfig["GPS MQTT URL"]

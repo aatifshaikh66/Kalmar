@@ -1,10 +1,11 @@
 {
+    "VEHICLE NUMBER": "RS-01",
     "IMEI"          : "123456789012345",
 
     "SER TCPIP"     : "12.12.12.12",
     "SER TCPPORT"   : "2202",
 
-    "SER HTTP URL"  : "http://192.168.1.15:8000/",
+    "SER HTTP URL"  : "http://www.qikkle.com:8084/GPS/Api/SendDeviceData",
 
     "SER MQTT URL"  : "www.qikkle.com",
     "SER MQTT PORT" : "1883",

@@ -78,6 +78,17 @@ def FnBuildHealthFrame( ):
     if HttpCurrentData["FRAME_NUMBER"] is None: 
        HttpCurrentData["FRAME_NUMBER"] = 1
 
+    HttpCurrentData["FRAME_TYPE"] = 0
+    HttpCurrentData["GPS_STATUS"]  =  str(varlistgpsparameter[0]) #0 to 5
+    HttpCurrentData["Date_Time"]   =  str(varlistgpsparameter[1]) +" "+ str(varlistgpsparameter[2]) #12-12-12 12:12:12 
+    HttpCurrentData["LAT"]         =  str(varlistgpsparameter[3]) #12.23
+    HttpCurrentData["LAT_DIR"]     =  str(varlistgpsparameter[4]) #NS
+    HttpCurrentData["LON"]         =  str(varlistgpsparameter[5]) #12.23
+    HttpCurrentData["LON_DIR"]     =  str(varlistgpsparameter[6]) #SW
+    HttpCurrentData["Speed"]       =  str(varlistgpsparameter[7])
+    HttpCurrentData["Altitude"]    =  str(varlistgpsparameter[8])
+    HttpCurrentData["Satellite_count"] = str(varlistgpsparameter[9])    
+
     HttpCurrentData["FRAME_NUMBER"] = str(int(HttpCurrentData["FRAME_NUMBER"]) + 1)
     FnHTTPDataSend(HttpCurrentData)
 
@@ -91,6 +102,7 @@ def FnTimerOperation( ):
     if TimerFlagSec == 1:
         TimerFlagSec  = _RESET
 
+        #print status 
         if TimerDebugEnable == 1:
                 timerStr = "T-" + str(TimerCountHour) + ":" + str(TimerCountMin) + ":" + str(TimerCountSec) 
                 GPSStr	 = " G-" + str(varlistgpsparameter[0])

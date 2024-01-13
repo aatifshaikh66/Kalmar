@@ -31,4 +31,4 @@ DeviceFrameNoFileLocation = "../devicestatus/framecount.txt"
 #Enable/ Disable 
 TimerDebugEnable    = 0 
 SystemDebugEnable   = 1
-
+HttpDebugEnable     = 1
